@@ -28,6 +28,7 @@ export const LatestReviews:React.FC<{
                         <p className="lead">
                             Currently no reviews for this book
                         </p>
+                        {/*idiot ne sdelaesh review zahuyaru ponyal?*/}
                     </div>
                 }
             </div>
