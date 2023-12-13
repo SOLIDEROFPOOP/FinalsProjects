@@ -5,6 +5,7 @@ import { StarsReview } from "../Utlis/StarsReview";
 import { CheckoutAndReviewBox } from "./CheckoutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
 import { error } from "console";
+import { LatestReviews } from "./LatestReviews";
 
 export const BookCheckoutPage = () => {
 
@@ -52,13 +53,13 @@ export const BookCheckoutPage = () => {
     }, []);
     useEffect(()=>{
         const fetchBookReviews = async () => {
-            const reviewUrl: string = `http://localhost:8080/api/review/search/findByBookId?bookId=${bookId}`;
+            const reviewUrl: string = `http://localhost:8080/api/reviews/search/findByBookId?bookId=${bookId}`;
             const responseReviews = await fetch(reviewUrl);
             if (!responseReviews.ok){
                 throw new Error('Something is wrong idiot!')
             }
             const responseJsonReviews = await responseReviews.json();
-            const responseData = responseJsonReviews._embeded.reviews;
+            const responseData = responseJsonReviews._embedded.reviews;
             const loadedReviews: ReviewModel[] = [];
             let weightedStarReviews: number = 0;
             for (const key in responseData){
@@ -78,7 +79,7 @@ export const BookCheckoutPage = () => {
                 setTotalStars(Number(round));
             }
             setReviews(loadedReviews);
-            setIsLoading(false);    
+            setIsLoadingReview(false);    
         };
         fetchBookReviews().catch((error: any) =>{
             setIsLoadingReview(false);
@@ -119,6 +120,7 @@ export const BookCheckoutPage = () => {
                     <CheckoutAndReviewBox book={book} mobile={false} />
                 </div>
                 <hr />
+                <LatestReviews reviews={reviews} bookId={book?.id}  mobile={false}/>
             </div>
             <div className="container d-lg-none mt-5">
                 <div className="d-flex justify-content-center align-items-center">
@@ -138,6 +140,7 @@ export const BookCheckoutPage = () => {
                 </div>
                 <CheckoutAndReviewBox book={book} mobile={true} />
                 <hr />
+                <LatestReviews reviews={reviews} bookId={book?.id}  mobile={true}/>
             </div>
         </div>
     );

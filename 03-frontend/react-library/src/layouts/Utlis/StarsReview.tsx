@@ -12,7 +12,7 @@ export const StarsReview: React.FC<{ rating: number, size: number }> = (props) =
             } else if (rating === .5){
                 halfstars = halfstars + 1;
                 rating = rating - .5;
-            } else if( rating == 0 ){
+            } else if( rating === 0 ){
                 emptystars = emptystars + 1;
             }else{
                 break;
