@@ -1,3 +1,4 @@
 SearhBooks needs changes after books and stuff like that
 npm install react-router-dom@5
 npm install --save @types/react-router-dom
+npm install @okta/okta-signin-widget@6.3.3
