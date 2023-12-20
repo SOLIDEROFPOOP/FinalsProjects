@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.accept.ContentNegotiationStrategy;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 public class SecurityConfiguration {
@@ -19,8 +20,7 @@ public class SecurityConfiguration {
         // Cross disable
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/books/secure/**")
-                .authenticated()
+                .requestMatchers("/api/books/secure/**", "/api/reviews/secure/**").authenticated()
                 .anyRequest().permitAll()
         ).oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())).cors(Customizer.withDefaults());
 
@@ -29,4 +29,5 @@ public class SecurityConfiguration {
         Okta.configureResourceServer401ResponseBody(http);
         return http.build();
     }
+
 }
