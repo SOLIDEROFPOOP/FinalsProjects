@@ -1,6 +1,8 @@
 package com.muratkapparov.springbootlibrary.config;
 
 import com.muratkapparov.springbootlibrary.entity.Book;
+import com.muratkapparov.springbootlibrary.entity.History;
+import com.muratkapparov.springbootlibrary.entity.Message;
 import com.muratkapparov.springbootlibrary.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -14,9 +16,10 @@ public class RestConfig implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors){
         HttpMethod[] unsupportedActions = {HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH, HttpMethod.PUT};
-        config.exposeIdsFor(Book.class, Review.class);
+        config.exposeIdsFor(Book.class, Review.class, Message.class);
         dissableHttpMethods(Book.class, config , unsupportedActions);
         dissableHttpMethods(Review.class, config, unsupportedActions);
+        dissableHttpMethods(Message.class, config, unsupportedActions);
         /* CORS config */
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(theAllowedOrigins);
