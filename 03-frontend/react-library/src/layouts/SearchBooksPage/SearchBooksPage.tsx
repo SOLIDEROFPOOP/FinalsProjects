@@ -127,7 +127,7 @@ export const SearchBooksPage = () =>{
                                 id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     {categorySelection}
                             </button>
-                            <ul className="dropdown-menu" aria-labelledy='dropdownMebuButton1'>
+                            <ul className="dropdown-menu" aria-labelledby='dropdownMebuButton1'>
                                 <li onClick={()=> categoryField('All')}>
                                     <a className="dropdown-item" href="#">
                                         All

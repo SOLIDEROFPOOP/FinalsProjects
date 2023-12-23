@@ -12,7 +12,7 @@ export const Navbar = () => {
     return (
         <nav className='navbar navbar-expand-lg navbar-dark main-color py-3'>
             <div className='container-fluid'>
-                <span className='navbar-brand'>Love 2 read</span>
+                <span className='navbar-brand'>Online Library</span>
                 <button className='navbar-toggler' type='button'
                     data-bs-toggle='collapse' data-bs-target='#navbarNavDropdown'
                     aria-controls='navbarNavDropdown' aria-expanded='false'
@@ -28,7 +28,11 @@ export const Navbar = () => {
                         <li className='nav-item'>
                             <NavLink className='nav-link' to="/search">Search books</NavLink>
                         </li>
-
+                        {authState.isAuthenticated &&
+                            <li className='nav-item'>
+                                <NavLink className='nav-link' to='/shelf'>Shelf</NavLink>
+                            </li>
+                        }
                     </ul>
                     <ul className='navbar-nav ms-auto'>
                         {!authState.isAuthenticated ?

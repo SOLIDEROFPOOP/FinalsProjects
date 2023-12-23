@@ -1,10 +1,13 @@
 package com.muratkapparov.springbootlibrary.controller;
 
 import com.muratkapparov.springbootlibrary.entity.Book;
+import com.muratkapparov.springbootlibrary.responsemodels.ShelfCurrentLoansResponse;
 import com.muratkapparov.springbootlibrary.service.BookService;
 import com.muratkapparov.springbootlibrary.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -15,6 +18,14 @@ public class BookController {
     public BookController(BookService bookService){
         this.bookService = bookService;
     }
+
+    @GetMapping("/secure/currentloans")
+    public List<ShelfCurrentLoansResponse> currentLoans(@RequestHeader(value = "Authorization") String token) throws Exception{
+        String user_email = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        return bookService.currentLoans(user_email);
+    }
+
+
     @PutMapping("/secure/checkout")
     public Book checkoutBook(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) throws Exception{
         String userEmail = ExtractJWT.payloadJWTExtraction(token , "\"sub\"");
@@ -30,4 +41,15 @@ public class BookController {
         String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
         return bookService.currentLoansCount(userEmail);
     }
+    @PutMapping("/secure/return")
+    public void returnBook(@RequestHeader(value = "Authorization") String token, @RequestParam(value = "bookId") Long bookId) throws Exception{
+        String email = ExtractJWT.payloadJWTExtraction(token , "\"sub\"");
+        bookService.returnBook(email, bookId);
+    }
+    @PutMapping("secure/renew/loan")
+    public void renewLoan(@RequestHeader(value = "Authorization") String token , @RequestParam(value = "bookId") Long bookId) throws Exception{
+        String email = ExtractJWT.payloadJWTExtraction(token,"\"sub\"");
+        bookService.renewLoan(email,bookId);
+    }
+
 }

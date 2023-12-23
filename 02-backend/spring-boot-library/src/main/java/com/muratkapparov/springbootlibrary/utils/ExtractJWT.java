@@ -24,8 +24,8 @@ public class ExtractJWT {
                 if (keyValue[1].endsWith("}")) {
                     remove = 2;
                 }
-                keyValue[1] = keyValue[1].substring(0, keyValue[1].length() - remove);
-                keyValue[1] = keyValue[1].substring(1);
+                keyValue[1] = keyValue[1].substring(1, keyValue[1].length() - remove);
+
                 map.put(keyValue[0], keyValue[1]);
             }
         }
