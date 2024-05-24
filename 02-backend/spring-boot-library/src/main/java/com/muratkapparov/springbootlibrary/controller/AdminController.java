@@ -4,8 +4,6 @@ import com.muratkapparov.springbootlibrary.RequestModels.AddBookRequest;
 import com.muratkapparov.springbootlibrary.service.AdminService;
 import com.muratkapparov.springbootlibrary.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("http://localhost:3000")
